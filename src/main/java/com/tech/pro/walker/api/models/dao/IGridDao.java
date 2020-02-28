@@ -25,7 +25,7 @@ public interface IGridDao extends JpaRepository<Grid, Long> {
 	
 	@Modifying
 	@Query(value="SELECT SUM(calcularPies (G.id_grid, G.total_pies)) AS pies ,W.id_walker, CONCAT(W.nombre, ' ', W.apellido_paterno ) AS walker FROM walkout.proyectos AS  PRO\r\n" + 
-			"    INNER JOIN walkout.ips AS IP ON ( PRO.id_proyecto = IP.id_proyecto AND IP.estatus = 1  AND IP.qc = 3)\r\n" + 
+			"    INNER JOIN walkout.ips AS IP ON ( PRO.id_proyecto = IP.id_proyecto AND IP.estatus = 1  AND IP.qc >= 1)\r\n" + 
 			"    INNER JOIN walkout.grids AS G ON ( G.id_ip = IP.id_ip AND G.estatus = 1)\r\n" + 
 			"    INNER JOIN walkout.asignacion AS A ON ( A.id_grid = G.id_grid )\r\n" + 
 			"    RIGHT JOIN walkout.walkers AS W ON ( A.id_walker = W.id_walker AND W.estatus = 1)\r\n" + 
@@ -36,7 +36,7 @@ public interface IGridDao extends JpaRepository<Grid, Long> {
 	
 	@Modifying
 	@Query(value="SELECT SUM(calcularPies (G.id_grid, G.total_pies)) AS pies ,W.id_walker, CONCAT(W.nombre, ' ', W.apellido_paterno ) AS walker FROM walkout.proyectos AS  PRO\r\n" + 
-			"    INNER JOIN walkout.ips AS IP ON ( PRO.id_proyecto = IP.id_proyecto AND IP.estatus = 1 AND IP.qc = 3 AND CAST(IP.fecha_levantamiento AS DATE) =?1 )\r\n" + 
+			"    INNER JOIN walkout.ips AS IP ON ( PRO.id_proyecto = IP.id_proyecto AND IP.estatus = 1 AND IP.qc >= 1 AND CAST(IP.fecha_levantamiento AS DATE) =?1 )\r\n" + 
 			"    INNER JOIN walkout.grids AS G ON ( G.id_ip = IP.id_ip AND G.estatus = 1)\r\n" + 
 			"    INNER JOIN walkout.asignacion AS A ON ( A.id_grid = G.id_grid )\r\n" + 
 			"    RIGHT JOIN walkout.walkers AS W ON ( A.id_walker = W.id_walker AND W.estatus = 1)\r\n" + 
@@ -46,7 +46,7 @@ public interface IGridDao extends JpaRepository<Grid, Long> {
 	
 	@Modifying
 	@Query( value = "SELECT SUM(calcularPies (G.id_grid, G.total_pies)) AS pies ,W.id_walker, CONCAT(W.nombre, ' ', W.apellido_paterno ) AS walker FROM walkout.proyectos AS  PRO\r\n" + 
-			"    INNER JOIN walkout.ips AS IP ON ( PRO.id_proyecto = IP.id_proyecto AND IP.estatus = 1 AND IP.qc = 3 AND (IP.fecha_levantamiento >=?1 AND IP.fecha_levantamiento <=?2))\r\n" + 
+			"    INNER JOIN walkout.ips AS IP ON ( PRO.id_proyecto = IP.id_proyecto AND IP.estatus = 1 AND IP.qc >= 1 AND (IP.fecha_levantamiento >=?1 AND IP.fecha_levantamiento <=?2))\r\n" + 
 			"    INNER JOIN walkout.grids AS G ON ( G.id_ip = IP.id_ip AND G.estatus = 1)\r\n" + 
 			"    INNER JOIN walkout.asignacion AS A ON ( A.id_grid = G.id_grid )\r\n" + 
 			"    RIGHT JOIN walkout.walkers AS W ON ( A.id_walker = W.id_walker AND W.estatus = 1)\r\n" + 

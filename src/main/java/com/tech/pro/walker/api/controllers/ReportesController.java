@@ -22,6 +22,7 @@ import com.tech.pro.walker.api.models.entity.Configuracion;
 import com.tech.pro.walker.api.services.IConfiguracionServiceImp;
 import com.tech.pro.walker.api.services.IGridServiceImp;
 import com.tech.pro.walker.api.services.IIpServiceImp;
+import com.tech.pro.walker.api.utils.Utils;
 
 @RestController
 @RequestMapping("api/walkout")
@@ -35,6 +36,9 @@ public class ReportesController {
 	
 	@Autowired
 	IIpServiceImp iIpServiceImp; 
+	
+	@Autowired
+	Utils utils;
 	
 	
 	@GetMapping("/rpt-global/{id_proyecto}")
@@ -79,8 +83,9 @@ public class ReportesController {
 		
 		for( Configuracion c : config_semanas ) {
 			
-			/*c.setFecha_inicio(this.utils.getDateCorrecta(c.getFecha_inicio(), 1));
-			c.setFecha_fin(this.utils.getDateCorrecta(c.getFecha_fin(), 1));*/
+			c.setFecha_inicio(this.utils.getDateCorrecta(c.getFecha_inicio(), -1));
+			c.setFecha_fin(this.utils.getDateCorrecta(c.getFecha_fin(), -1));
+			
 			
 			List<Object> aux = new ArrayList<Object>();			
 					
@@ -92,6 +97,7 @@ public class ReportesController {
 			aux.add(c);
 			
 			datos.add( aux );
+			
 			
 		}
 		
